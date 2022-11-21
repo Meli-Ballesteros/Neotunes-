@@ -7,6 +7,6 @@ package model;
 public interface EditarListas {
 	
 	 public String addAudioPlaylist(String name, Cancion cancion, String sonido);
-     public String delateAudio(Audio auido, String namePlaylist,String audioName );
+     public String delateAudio(String name, Cancion cancion , String sonido);
 
 }

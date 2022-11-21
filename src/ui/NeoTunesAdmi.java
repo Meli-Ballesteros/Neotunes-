@@ -9,12 +9,20 @@ import java.util.Date;
 
 public class NeoTunesAdmi {
 
+	/**
+	 * Estas son las variables de la clase Main
+	 */
 	private Scanner read;
 	private Date fecha;
 	
+	/**
+	 * Esta es la relacion con la clase controladora del Modelo
+	 */
 	private NeoTunes controller;
 	
-	
+	/**
+	 * Esta es la clase contructora
+	 */
 	public NeoTunesAdmi(){
 		
 		read = new Scanner(System.in);
@@ -25,7 +33,7 @@ public class NeoTunesAdmi {
 	
 	
 	/**
-	 * Este es el metodo
+	 * Este es el metodo main
 	 * @param args
 	 */
 	public static void main(String[] args) {	
@@ -34,7 +42,9 @@ public class NeoTunesAdmi {
 		manager.execute();
 	}
 	
-	
+	/**
+	 * Este es el metodo encargado de recoger la opcion introducida por el usuario en el menu
+	 */
 	public void execute() {
 		
         int option = 0;
@@ -80,7 +90,10 @@ public class NeoTunesAdmi {
         } while (option != 0);        
     }
 	
-	
+	/**
+	 * Este metodo se encarga de trasladar la desicion del usuario para obtener lo que desea en el menu
+	 * @param option
+	 */
     public void executeOption(int option) {
     	
     	
@@ -102,16 +115,16 @@ public class NeoTunesAdmi {
                 listas();
                 break;
             case 6:
-                ;
+                editarListas();
                 break;
             case 7:
-                ;
+                compartirListas();
                 break;
             case 8:
-            	;
+            	reproducir();
             	break;
             case 9:
-            	;
+            	comprar();
             	break;
             case 10:
             	informeReproduccionS();            	
@@ -159,6 +172,9 @@ public class NeoTunesAdmi {
         }
     }
     
+    /**
+     * Este metodo se encarga de recoger informacion para poder crear un usuario
+     */
     public void user(){
     	
     	read.nextLine();
@@ -184,6 +200,9 @@ public class NeoTunesAdmi {
     	    	
     }
     
+    /**
+     * Este metodo se encarga de recoger informacion para poder crear un productor
+     */
     public void productor() {
     	
     	read.nextLine();
@@ -203,6 +222,9 @@ public class NeoTunesAdmi {
     }
     
     
+    /**
+     * Este metodo se encarga de recoger informacion para poder crear una cancion
+     */
     public void cancion() {
     	
     	read.nextLine();
@@ -228,7 +250,11 @@ public class NeoTunesAdmi {
     }
     
     
+    /**
+     * Este metodo se encarga de recoger informacion para poder crear un podcast
+     */
     public void podcast() {
+    	
     	read.nextLine();
     	System.out.println("Escribe el nombre del podcast: ");
     	String name = read.nextLine();
@@ -252,7 +278,9 @@ public class NeoTunesAdmi {
     	
     }
     
-    
+    /**
+     * Este metodo se encarga de recoger informacion para poder crear una lista de reproduccion
+     */
     public void listas() {
     	
     	read.nextLine();
@@ -266,37 +294,79 @@ public class NeoTunesAdmi {
     }
     
     public void editarListas() {
+    	
     	read.nextLine();
     	System.out.println("Escribe el tipo de usuario");
     	System.out.println("1. Estandar");
     	System.out.println("2. Premium");
     	int typeU = read.nextInt();
     	System.out.println("1. Agregar un audio de la lista");
-    	System.out.println("2. Eliminar un audio de la lista");
-    	    
-        int typeEdit = read.nextInt(); 
-        
+    	System.out.println("2. Eliminar un audio de la lista");    	    
+        String typeEdit = read.nextLine();         
         System.out.println("Escribe el nombre de la Lista");
         String name=read.nextLine();
         System.out.println("Escribe el nombre del audio");
-        String audio = read.nextLine();
+        String sonido = read.nextLine();
         
-        int option = 0;
-     //   System.out.println(controller.editList(nickname, name, sonido, option));
-             
+        System.out.println(controller.editList(typeEdit, name, sonido, typeU));        
         	
     }
     
+    /**
+     * Este metodo se encarga de mandar la informacion necesaria para poder compartir una lista
+     */
+    public void compartirListas() {
+    	
+    	read.nextLine();
+    	System.out.println("Escribe el nickname del usuario");
+        String nickname=read.nextLine();
+        System.out.println("Escribe el nombre de la Lista");
+        String name = read.nextLine();
+        
+        System.out.println(controller.shareList(nickname, name));
+    }
+    
+    /**
+     * Este metodo se encarga de recoger informacion para poder reproducir un audio
+     */
+    public void reproducir() {
+    	
+    	System.out.println("Escribe el nombre del usuario");
+    	String nickname = read.nextLine();
+    	
+    	System.out.println("Escribe el nombre del audio a reproducir");
+    	String audio = read.nextLine();
+    	
+    	System.out.println(controller.listen(nickname, audio));
+    }
+    
+    /**
+     * Este metodo se encarga de recoger informacion para poder comprar una cancion
+     */
+    public void comprar() {
+    	
+    	
+    }
+    
+    /**
+     * Este metodo se encarga de infromar el total de reproducciones de canciones
+     */
     public void informeReproduccionS(){
     	
     	System.out.println(controller.totalVSongs());    	
     }
     
+    /**
+     * Este metodo se encarga  de informar el total de reproducciones de podcast
+     */
     public void informeReproduccionP(){
     	
     	System.out.println(controller.totalVPodcasts());    	
     }
     
+    /**
+     * Este metodo se encarga de informar la el genero mas escuchado por un usuario en especifico
+     */
     public void informeGeneroU() {
     	
     	System.out.println("Escribe el nickname del usuario ");
@@ -304,6 +374,9 @@ public class NeoTunesAdmi {
         System.out.println(controller.typeUserGenre(nickname));
     }
     
+    /**
+     * Este metodo se encargar de informar el genero mas escuchado en toda la aplicacion
+     */
     public void informeGeneroApp() {
     	
     	System.out.println(controller.totalGenreApp());

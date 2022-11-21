@@ -4,14 +4,30 @@ import java.util.ArrayList;
 
 public class Premium extends User{
 	
+	/**
+	 * Estos son lso arrylist de la clase premium
+	 * 
+	 */
 	private ArrayList <Cancion> canciones;
 	private ArrayList <Podcast> podcast;
 
+	/**
+	 * Este es el metodo constructor de la clase Premium
+	 * @param nickname
+	 * @param cedula
+	 * @param fechaVinculacion
+	 * @param fechaCompra
+	 * @param typeU
+	 */
 	public Premium(String nickname, String cedula, int fechaVinculacion, int fechaCompra, int typeU) {
 		super(nickname, cedula, fechaVinculacion, fechaCompra, typeU);
 		
 	}
-
+	
+	/**
+	 * Este es el metodo encargado de saber el genero mas escuchado por un usuario en especifico
+	 * @return
+	 */
 	public String totalGenreU(){
 		
 		String message = null;
@@ -51,6 +67,32 @@ public class Premium extends User{
 	        return message; 
 	     }
 	
+	/**
+	 * Este es el metodo encargado de compartir una lista de reproduccion 
+	 * @param name
+	 * @return
+	 */
+	 public int shareList(String name) {
+	    	
+    	 int message = 0;
+         ListaReproduccion playlist = null; 
+         if(playlist == null){
+        	message = playlist.getCodigo();
+            
+         }         
+     
+        return message;
+    	  	
+    }
+	
+	/**
+	 * Este es el metodo encargado de simular una reproduccion
+	 * @return
+	 */
+	public String start() {
+    	
+    	return "";
+    }
 
 
 }

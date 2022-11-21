@@ -2,6 +2,9 @@ package model;
 
 public class Cancion {
 	
+	/**
+	 * Son las variables correspondientes para la clase Cancion
+	 */
 	private String name;
 	private String album;
 	private int genero;
@@ -10,8 +13,21 @@ public class Cancion {
 	private int numeroVentas;
 	private double valorVenta;
 	
+	/**
+	 * Relacion con la clase Genero
+	 */
 	private Genero tipoGenero;
 	
+	/**
+	 * Metodo contructor de la clase Cancion
+	 * @param name
+	 * @param album
+	 * @param genero
+	 * @param url
+	 * @param numeroReproduccion
+	 * @param numeroVentas
+	 * @param valorVenta
+	 */
 	public Cancion(String name, String album, int genero, String url, int numeroReproduccion, int numeroVentas, double valorVenta) {
 		
 		this.name = name;
@@ -43,7 +59,10 @@ public class Cancion {
 		}		
 	}
 
-
+	/**
+	 * Getters y setters
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}

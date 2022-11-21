@@ -2,12 +2,23 @@ package model;
 
 public class User {
 	
+	/**
+	 * Variables correspondientes a la clase User
+	 */
 	private String nickname;
 	private String cedula;
 	private int fechaVinculacion;
 	private int fechaCompra;
 	private int typeU;
 	
+	/**
+	 * Contructor de la clase User
+	 * @param nickname
+	 * @param cedula
+	 * @param fechaVinculacion
+	 * @param fechaCompra
+	 * @param typeU
+	 */
 	public User(String nickname, String cedula, int fechaVinculacion, int fechaCompra, int typeU) {
 		
 		this.nickname = nickname;
@@ -17,6 +28,10 @@ public class User {
 		this.typeU = typeU;
 	}
 
+	/**
+	 * Getters y setters
+	 * @return
+	 */
 	public String getNickname() {
 		
 		return nickname;

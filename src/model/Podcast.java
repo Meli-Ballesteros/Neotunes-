@@ -2,6 +2,9 @@ package model;
 
 public class Podcast {
 	
+	/**
+	 * Variables correspondientes clase Podcast
+	 */
 	private String name;
 	private String description;
 	private String url;
@@ -9,8 +12,20 @@ public class Podcast {
 	private int numeroReproduccionesP;
 	private int duracion;
 	
+	/**
+	 * Relacion con la clase Categoria
+	 */
 	private Categoria tipoCategoria;
 	
+	/**
+	 * Metodo contructor clase Podcast
+	 * @param name
+	 * @param description
+	 * @param url
+	 * @param category
+	 * @param numeroReproduccionesP
+	 * @param duracion
+	 */
 	public Podcast(String name, String description, String url, int category, int numeroReproduccionesP, int duracion) {
 		
 		this.name = name;
@@ -40,7 +55,11 @@ public class Podcast {
 		}		
 
 	}
-
+	
+	/**
+	 * Getters y Setters
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}

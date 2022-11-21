@@ -6,6 +6,11 @@ public class ListaReproduccion {
 	private int codigo;
 	
 	
+	/**
+	 * Este es el contructor de la clase Lista 
+	 * @param name
+	 * @param codigo
+	 */
 	public ListaReproduccion(String name, int codigo) {
 		
 		this.name = name;
@@ -13,6 +18,10 @@ public class ListaReproduccion {
 	}
 	
 
+	/**
+	 * Este es el metodo Getter y setter
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}

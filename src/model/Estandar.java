@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class Estandar extends User{
 	
-	
+	/**
+	 * Este son los arreglos correspondientes a la clase Estandar
+	 */
 	private ArrayList <Cancion> canciones;
 	private ArrayList <Podcast> podcast;
  	
@@ -13,7 +15,10 @@ public class Estandar extends User{
 		super(nickname, cedula, fechaVinculacion, fechaCompra, typeU);	
 	}
 	
-	
+	/**
+	 * Este metodo se encarga de generar un informe del total de genero escuchado en un ususario en especifico
+	 * @return
+	 */
 	public String totalGenreU(){
 		
 		String message = null;
@@ -53,8 +58,37 @@ public class Estandar extends User{
 	        return message; 
 	     }
 	
-
-    
+	
+	/**
+	 * Este metodo es el encargado de reproducir una cancion de un usuario estandar
+	 * @return
+	 */
+    public String start() {
+    	
+    	return "";
+    }
+	
+    /**
+     * Este es el metodo encargado de compartir una lista 
+     * @param name
+     * @return
+     */
+    public int shareList(String name) {
+    	
+    	 int message = 0;
+         ListaReproduccion playlist = null; 
+         if(playlist == null){
+        	message = playlist.getCodigo();
+            
+         }         
+     
+        return message;
+    	  	
+    }
+	
+    /**
+     * Este es el metodo toString de la clase Estandar
+     */
 	@Override
 	public String toString() {
 		return "Estandar [getNickname()=" + getNickname() + ", getCedula()=" + getCedula() + ", getFechaVinculacion()="

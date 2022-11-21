@@ -5,12 +5,19 @@ import java.util.Calendar;
 
 public class NeoTunes {
 	
+	/**
+	 * Estas variables son los Arraylist
+	 */
 	private ArrayList<User> usuarios;
 	private ArrayList<Productor> productores;
 	private ArrayList<Cancion> canciones;
 	private ArrayList<Podcast> podcasts;
 	private ArrayList<ListaReproduccion> listas;
 	
+	
+	/**
+	 * Este es el metodo constructor de la clase controladora
+	 */
 	public NeoTunes(){
 		
 		usuarios = new ArrayList<User>();
@@ -22,7 +29,15 @@ public class NeoTunes {
 	}
 	
 	
-	
+	/**
+	 * Este metodo se encarga de agregar un usuario a la matriz
+	 * @param nickname
+	 * @param cedula
+	 * @param fechaCompra
+	 * @param fechaVinculacion
+	 * @param typeU
+	 * @return
+	 */
 	public String addUser(String nickname, String cedula, int fechaCompra, int fechaVinculacion, int typeU) {
 		
 		User user = searchUser(nickname);
@@ -54,6 +69,12 @@ public class NeoTunes {
 		return message;
 	}
 	
+	
+	/**
+	 * Este metodo se encarga de buscar un usuario 
+	 * @param nickname
+	 * @return
+	 */
 	public User searchUser(String nickname){
 		
 		User usuario = null; 
@@ -70,7 +91,14 @@ public class NeoTunes {
 		return usuario; 
 	}
 	
-	
+	/**
+	 * Este metodo se encarga de añadir un productor a la matriz
+	 * @param name
+	 * @param url
+	 * @param fechaVinculacion
+	 * @param typeU
+	 * @return
+	 */
 	public String addProductor(String name, String url, int fechaVinculacion, int typeU){
 		
 		Productor producer = searchProducer(name);
@@ -102,6 +130,11 @@ public class NeoTunes {
 			
 	}
 	
+	/**
+	 * Este metodo se encarga de buscar un productor dentro de la matriz
+	 * @param name
+	 * @return
+	 */
 	public Productor searchProducer(String name){
 		
 		Productor productor = null; 
@@ -118,6 +151,18 @@ public class NeoTunes {
 		return productor; 
 	}
 	
+	
+	/**
+	 * Este metodo se encarga de  añadir una cancion a la matriz
+	 * @param name
+	 * @param album
+	 * @param genero
+	 * @param url
+	 * @param numeroReproduccion
+	 * @param numeroVentas
+	 * @param valorVenta
+	 * @return
+	 */
 	public String addSong(String name, String album, int genero, String url, int numeroReproduccion, int numeroVentas, double valorVenta) {
 		
 		String message = null;
@@ -128,6 +173,11 @@ public class NeoTunes {
 		return message;		
 	}
 	
+	/**
+	 * Este metodo se encarga de buscar una cancion dentro de la matriz
+	 * @param name
+	 * @return
+	 */
 	public Cancion searchSong(String name){
 		
         Cancion sonido = null;
@@ -145,6 +195,16 @@ public class NeoTunes {
         return sonido;
     }
 	
+	/**
+	 * Este metodo se encarga de añadir un podcast a la matriz
+	 * @param name
+	 * @param description
+	 * @param url
+	 * @param category
+	 * @param numeroReproduccionesP
+	 * @param duracion
+	 * @return
+	 */
 	public String addPodcast(String name, String description, String url, int category, int numeroReproduccionesP, int duracion) {
 		
 		String message = null;
@@ -154,6 +214,12 @@ public class NeoTunes {
 		return message;
 	}
 	
+	/**
+	 * Este metodo se encarga de añadir una Lista de reproduccion
+	 * @param name
+	 * @param codigo
+	 * @return
+	 */
 	public String addList(String name, int codigo) {
 		
 		String message = null;
@@ -165,7 +231,14 @@ public class NeoTunes {
 	}
 	
 	
-	
+	/**
+	 * Este metodo es el encargado de editar una lista
+	 * @param nickname
+	 * @param name
+	 * @param sonido
+	 * @param option
+	 * @return
+	 */
 	public String editList(String nickname, String name, String sonido, int option){
 		
         String message = null;         
@@ -201,6 +274,90 @@ public class NeoTunes {
 
     }
 	
+	/**
+	 * Este metodo es el encargado de compartir una lista y mostrar el codigo correspondiente
+	 * @param nickname
+	 * @param name
+	 * @return
+	 */
+	public int shareList(String nickname, String name) {
+		int message = 0; 
+        User user = searchUser(nickname);
+
+        if(user == null){
+        	
+            System.out.println("El ususario no existe");;
+        } else{
+        	
+            if(user instanceof Estandar){
+                Estandar est = ((Estandar)(user) );
+                message = est.shareList(name);
+               
+            }
+            else if(user instanceof Premium){
+                Premium premium = ( (Premium)(user) );
+                message = premium.shareList(name);
+                
+            }            
+        }
+        
+        return message;
+
+         
+		
+	}
+	
+	/**
+	 * Este metodo se encarga de simular una reproduccion
+	 * @param nickname
+	 * @param audio
+	 * @return
+	 */
+	public String listen(String nickname, String audio) {
+		
+		String message = null; 
+        User user = searchUser(nickname);
+
+        if(user == null){
+            message = "El usuario ingresado no existe";
+        }
+        else {
+            Cancion cancion = searchSong(audio);
+            if(cancion == null){
+                message = "La cancion no existe";
+            }
+               else{
+                if(user instanceof Estandar){
+                    //Estandar est = ((Estandar)(cancion));
+                    //message = est.play();
+                    simulation(cancion);
+                }
+                else if(user instanceof Premium){
+                    Premium premium = ((Premium)(user));
+                    message = premium.start();
+                    simulation(cancion);
+                }                
+            } 
+        }
+        
+        return message;
+		
+	}
+	
+	/**
+	 * 
+	 * @param cancion
+	 * @return
+	 */
+	public String simulation(Cancion cancion) {
+		
+		return "";
+	}
+	
+	/**
+	 * Este metodo se encarga de informar el total de reproducciones de canciones
+	 * @return
+	 */
 	public String totalVSongs(){
 		
         String message = null;
@@ -219,6 +376,10 @@ public class NeoTunes {
         return message;
     }
 	
+	/**
+	 * Este metodo se encarga de informar el total de reproducciones de podcast
+	 * @return
+	 */
 	public String totalVPodcasts(){
 		
         String message = null;
@@ -237,6 +398,11 @@ public class NeoTunes {
         return message;
     }
 	
+	/**
+	 * Este metodo se encarga de saber el tipo de genero de un usuario
+	 * @param nickname
+	 * @return
+	 */
 	public String typeUserGenre(String nickname) {
 		
 		User user = searchUser(nickname);
@@ -263,6 +429,10 @@ public class NeoTunes {
         return message;
 	}
 	
+	/**
+	 * Este metodo se encarga de generar el total del genero un usuario en especifico
+	 * @return
+	 */
 	public String totalGenreU() {
 		
 		 String message = null;
@@ -302,6 +472,10 @@ public class NeoTunes {
 	        return message; 
 	}
 	
+	/**
+	 * Este metodo se encarga de generar un informe del total  o el genero mas escuchado en la app
+	 * @return
+	 */
 	public String totalGenreApp(){
 		
 		String message = null;
