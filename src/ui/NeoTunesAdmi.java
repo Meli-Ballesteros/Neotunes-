@@ -51,7 +51,7 @@ public class NeoTunesAdmi {
                     "(8). Simular reproduccion de audio (Cancion/Podcast)\n"+
                     "(9). Comprar una cancion\n"+
                     /**"(
-                    "(10). Generar un informe sobre el total de reproducciones de una cancion en la plataforma\n"+
+                    "(10). nerar un informe sobre el total de reproducciones de una cancion en la plataforma\n"+
                     "(11). Generar un informe sobre el total de reproducciones de un podcast en la plataforma\n"+
                     "(12). Generar un informe acerca del genero musical mas escuchado para un usuario en especifico.\n"+
                     "(13). Generar un informe acerca del genero musical mas escuchado en la plataforma. \n"+
