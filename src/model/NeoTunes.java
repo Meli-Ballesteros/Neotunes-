@@ -25,13 +25,31 @@ public class NeoTunes {
 	
 	public String addUser(String nickname, String cedula, int fechaCompra, int fechaVinculacion, int typeU) {
 		
+		User user = searchUser(nickname);
 		String message = null;
 		
-		User objEstandar = new Estandar(nickname, cedula, fechaCompra, fechaVinculacion, typeU);
-		usuarios.add(objEstandar);
-		message = "El usuario fue creado correctamente: "+ nickname;	
-				
-		
+		if (user != null) {
+
+            message = "El usuario ya existe";
+            
+        } else {
+        	
+        	if(typeU == 1) {
+        		
+        		User objEstandar = new Estandar(nickname, cedula, fechaCompra, fechaVinculacion, typeU);
+        		usuarios.add(objEstandar);
+        		message = "El usuario estandar fue creado correctamente: "+ nickname;	 
+        		
+        	} else {
+        		
+        		User objPremium = new Premium(nickname, cedula, fechaCompra, fechaVinculacion, typeU);
+        		usuarios.add(objPremium);
+        		message = "El usuario premium fue creado correctamente: "+ nickname;	
+        	}
+        	
+        	     
+    		
+        }	
 		
 		return message;
 	}
@@ -159,6 +177,7 @@ public class NeoTunes {
         else{
         	
             User user = searchUser(nickname);
+            
             if(user == null){
                 message = "El usuario ingresado no existe!"; 
             }
@@ -167,35 +186,18 @@ public class NeoTunes {
 
                     if(user instanceof Estandar){
                         Estandar estandar = ((Estandar)(user));
-                        message = estandar.addAudioPlaylist(name, cancion, sonido); 
+                        
                     }
-                    else if(theUser instanceof Premium){
-                        Premium newPremium = ((Premium)(theUser));
-                        msj = newPremium.addAudioPlaylist(namePlaylist,type,newAudio, audio);
-                    }
-                    else{
-                        msj = "this user isnot premium or standard";
-                    }
+                    else if(user instanceof Premium){
+                        Premium premium = ((Premium)(user));
+                        
+                    }                    
                 }
-                if(option == 2){
-
-                    if(theUser instanceof Standard){
-                        Standard newStandart = ((Standard)(theUser));
-                        msj = newStandart.delateAudio(newAudio, namePlaylist, audio);
-                    }
-                    else if(theUser instanceof Premium){
-                        Premium newPremium = ((Premium)(theUser));
-                        msj = newPremium.delateAudio(newAudio, namePlaylist, audio);
-                    }
-                    else{
-                        msj = "this user isnot premium or standard";
-                    }
-
-                }
+               
             }
         }
 
-        return msj;
+        return message;
 
     }
 	
@@ -249,19 +251,16 @@ public class NeoTunes {
 
             if(user instanceof Estandar){
             	
-                Estandar standard = ((Estandar)(user)); 
-                 message = standard.totalGenreU();
+                Estandar est = ((Estandar)(user)); 
+                 message = est.totalGenreU();
             }
             else if(user instanceof Premium){
                 Premium premium = ((Premium)(user)); 
-                 msj=mostSongViews() + premium.mostSongViews();
+                 message = premium.totalGenreU();
 
-            }
-            else{
-                msj="you must enter a user type consumer";
-            }
+            }            
         }
-    return msj;
+        return message;
 	}
 	
 	public String totalGenreU() {

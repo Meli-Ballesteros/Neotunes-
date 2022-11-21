@@ -120,10 +120,10 @@ public class NeoTunesAdmi {
             	informeReproduccionP();
             	break;
             case 12:
-            	;
+            	informeGeneroU();
             	break;
             case 13:
-            	;
+            	informeGeneroApp();
             	break;
             case 14:
             	;
@@ -300,7 +300,12 @@ public class NeoTunesAdmi {
     public void informeGeneroU() {
     	
     	System.out.println("Escribe el nickname del usuario ");
-        String nickname1 = read.next();
-        System.out.println(controller.totalGenreU(nickname1));
+        String nickname = read.next();
+        System.out.println(controller.typeUserGenre(nickname));
+    }
+    
+    public void informeGeneroApp() {
+    	
+    	System.out.println(controller.totalGenreApp());
     }
 }
