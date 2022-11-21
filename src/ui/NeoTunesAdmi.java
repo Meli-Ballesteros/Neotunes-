@@ -254,5 +254,13 @@ public class NeoTunesAdmi {
     	System.out.println(controller.addPodcast(name, description, url, category, numeroReproduccionesP, duracion));
     	
     }
-
+    
+    
+    public void listas() {
+    	
+    	read.nextLine();
+    	System.out.println("Escribe el nombre de la lista: ");
+    	String name
+    	System.out.println("Es");
+    }
 }
