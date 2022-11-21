@@ -91,9 +91,27 @@ public class Cancion {
 
 	
 	public double generoMasEscuchado(String genero, String numeroReproduccion) {
-		return numeroVentas;
 		
-		
+		return numeroVentas;		
 	}
+	
+	public int tipoGenero(){
+		
+        switch (tipoGenero) {
+        
+            case ROCK:
+                return 1;
+            case POP:
+                return 2;
+            case TRAP:
+                return 3;
+            case HOUSE:
+                return 4;
+                
+            default:
+             return 0;
+        }  
+
+    }
 
 }

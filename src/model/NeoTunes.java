@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class NeoTunes {
 	
@@ -8,6 +9,7 @@ public class NeoTunes {
 	private ArrayList<Productor> productores;
 	private ArrayList<Cancion> canciones;
 	private ArrayList<Podcast> podcasts;
+	private ArrayList<ListaReproduccion> listas;
 	
 	public NeoTunes(){
 		
@@ -15,8 +17,11 @@ public class NeoTunes {
 		productores = new ArrayList<Productor>();
 		canciones = new ArrayList<Cancion>();
 		podcasts = new ArrayList<Podcast>();
+		listas = new ArrayList<ListaReproduccion>();
 		
 	}
+	
+	
 	
 	public String addUser(String nickname, String cedula, int fechaCompra, int fechaVinculacion, int typeU) {
 		
@@ -31,19 +36,69 @@ public class NeoTunes {
 		return message;
 	}
 	
+	public User searchUser(String nickname){
+		
+		User usuario = null; 
+		boolean created = false; 
+		
+		for(int i=0; i<usuarios.size() && !created; i++ ){
+			
+			if(usuarios.get(i).getNickname().equalsIgnoreCase(nickname)){
+				
+				usuario = usuarios.get(i); 
+				created = true; 
+			} 
+		}
+		return usuario; 
+	}
+	
 	
 	public String addProductor(String name, String url, int fechaVinculacion, int typeU){
 		
+		Productor producer = searchProducer(name);
 		String message = null;
 		
-		Productor objArtista = new Artista(name, url, fechaVinculacion, typeU);
-		productores.add(objArtista);
-		message = "El productor fue creado correctamente: "+ name;	
-		
-		return message;
+		if (producer != null) {
+
+            message = "El productor ya existe";
+            
+        } else {
+        	
+        	if(typeU == 1) {
+        		
+        		Productor objArtista = new Artista(name, url, fechaVinculacion, typeU);
+        		productores.add(objArtista);
+        		message = "El artista fue creado correctamente: "+ name;  
+        		
+        	} else {
+        		
+        		Productor objCreador = new Creador(name, url, fechaVinculacion, typeU);
+        		productores.add(objCreador);
+        		message = "El creador fue creado correctamente: "+ name;
+        	}
+        	
+        	     
+    		
+        }
+        return message;
 			
 	}
 	
+	public Productor searchProducer(String name){
+		
+		Productor productor = null; 
+		boolean created = false; 
+		
+		for(int i=0; i<productores.size() && !created; i++ ){
+			
+			if(productores.get(i).getName().equalsIgnoreCase(name)){
+				
+				productor = productores.get(i); 
+				created = true; 
+			} 
+		}
+		return productor; 
+	}
 	
 	public String addSong(String name, String album, int genero, String url, int numeroReproduccion, int numeroVentas, double valorVenta) {
 		
@@ -55,6 +110,23 @@ public class NeoTunes {
 		return message;		
 	}
 	
+	public Cancion searchSong(String name){
+		
+        Cancion sonido = null;
+        boolean created= false;
+        
+        for(int i=0; i<canciones.size() && !created; i++){
+        	 
+            if(canciones.get(i).getName().equalsIgnoreCase(name)){
+            	
+                sonido = canciones.get(i);
+                created= true;
+            }
+         }
+    
+        return sonido;
+    }
+	
 	public String addPodcast(String name, String description, String url, int category, int numeroReproduccionesP, int duracion) {
 		
 		String message = null;
@@ -62,6 +134,215 @@ public class NeoTunes {
 		podcasts.add(objPodcast);
 		message = "El pocast fue creado correctamente: "+name;
 		return message;
+	}
+	
+	public String addList(String name, int codigo) {
+		
+		String message = null;
+		ListaReproduccion objLista = new ListaReproduccion(name, codigo);
+		listas.add(objLista);
+		message = "La lista fue creada correctamente: "+name;
+		return message;
+		
+	}
+	
+	
+	
+	public String editList(String nickname, String name, String sonido, int option){
+		
+        String message = null;         
+        Cancion cancion = searchSong(sonido);
+        
+        if(cancion == null){
+            message = "Esta cancion no existe";
+        }
+        else{
+        	
+            User user = searchUser(nickname);
+            if(user == null){
+                message = "El usuario ingresado no existe!"; 
+            }
+            else{
+                if(option ==1){
+
+                    if(user instanceof Estandar){
+                        Estandar estandar = ((Estandar)(user));
+                        message = estandar.addAudioPlaylist(name, cancion, sonido); 
+                    }
+                    else if(theUser instanceof Premium){
+                        Premium newPremium = ((Premium)(theUser));
+                        msj = newPremium.addAudioPlaylist(namePlaylist,type,newAudio, audio);
+                    }
+                    else{
+                        msj = "this user isnot premium or standard";
+                    }
+                }
+                if(option == 2){
+
+                    if(theUser instanceof Standard){
+                        Standard newStandart = ((Standard)(theUser));
+                        msj = newStandart.delateAudio(newAudio, namePlaylist, audio);
+                    }
+                    else if(theUser instanceof Premium){
+                        Premium newPremium = ((Premium)(theUser));
+                        msj = newPremium.delateAudio(newAudio, namePlaylist, audio);
+                    }
+                    else{
+                        msj = "this user isnot premium or standard";
+                    }
+
+                }
+            }
+        }
+
+        return msj;
+
+    }
+	
+	public String totalVSongs(){
+		
+        String message = null;
+        int total=0;
+        
+        if(canciones.size()!=0){
+        	
+            for(int i=0;i<canciones.size();i++){
+            	
+            	total+=canciones.get(i).getNumeroReproduccion();
+            }
+        }
+        
+        message = "El total de vistas de canciones es: "+total ;
+        
+        return message;
+    }
+	
+	public String totalVPodcasts(){
+		
+        String message = null;
+        int total=0;
+        
+        if(podcasts.size()!=0){
+        	
+            for(int i=0;i<podcasts.size();i++){
+            	
+            	total+=podcasts.get(i).getNumeroReproduccionesP();
+            }
+        }
+        
+        message = "El total de vistas de podcast es: "+total ;
+        
+        return message;
+    }
+	
+	public String typeUserGenre(String nickname) {
+		
+		User user = searchUser(nickname);
+		String message = null; 
+        
+
+        if(user == null){
+        	
+            message = "No existe este usuario";
+        }
+        else{ 
+
+            if(user instanceof Estandar){
+            	
+                Estandar standard = ((Estandar)(user)); 
+                 message = standard.totalGenreU();
+            }
+            else if(user instanceof Premium){
+                Premium premium = ((Premium)(user)); 
+                 msj=mostSongViews() + premium.mostSongViews();
+
+            }
+            else{
+                msj="you must enter a user type consumer";
+            }
+        }
+    return msj;
+	}
+	
+	public String totalGenreU() {
+		
+		 String message = null;
+	     int[] genres ={0,0,0,0};
+	     
+	     if(canciones.size()!=0){
+	    	 
+	            for(int i =0; i< canciones.size(); i++){
+	            	
+	                Cancion song = ((Cancion)(canciones.get(i)));
+	                
+	                    switch(song.tipoGenero()){
+	                    
+	                     case 1:
+	                    	 genres[0]++;
+	                     break;
+	                     case 2:
+	                    	 genres[1]++;
+	                      break;
+	                     case 3:
+	                    	 genres[2]++;
+	                      break;
+	                     case 4:
+	                    	 genres[3]++;
+	                      break;
+	                      
+	                     default:
+	                    	 
+	                      break;
+	                   }
+
+	            }
+	            
+	            
+	        }
+	             
+	        return message; 
+	}
+	
+	public String totalGenreApp(){
+		
+		String message = null;
+	    int position = 0;	    
+	    int mayor = 0;
+	    int[] genres ={0,0,0,0};
+	            
+	    for(int i=0; i<4; i++){
+	    	
+	    	if(genres[i]> mayor){
+	    		
+	    		position = i; 
+	        }
+	    }
+	            
+	    switch(position){
+	    
+	             case 0:
+	            	 message="\n ROCK \n"+"views: "+genres[position];
+	             break;
+	             
+	             case 1:
+	            	 message="\n POP \n"+"views: "+genres[position];
+	             break;
+	             
+	             case 2:
+	            	 message="\n TRAP \n"+"views: "+genres[position];
+	             break;
+	             
+	             case 3:
+	            	 message="\n HOUSE \n"+"views: "+genres[position];
+	             break;
+	             
+	             case 4:
+	            	 message="La cancion no existe";
+	             break;
+	             
+	            }
+	                     
+	        return message; 	
 	}
 	
 	

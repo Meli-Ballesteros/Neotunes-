@@ -50,10 +50,10 @@ public class NeoTunesAdmi {
                     "(7). Compartir una lista de reproduccion\n" +
                     "(8). Simular reproduccion de audio (Cancion/Podcast)\n"+
                     "(9). Comprar una cancion\n"+
-                    /**"(
-                    "(10). nerar un informe sobre el total de reproducciones de una cancion en la plataforma\n"+
+                    "(10). Generar un informe sobre el total de reproducciones de una cancion en la plataforma\n"+
                     "(11). Generar un informe sobre el total de reproducciones de un podcast en la plataforma\n"+
                     "(12). Generar un informe acerca del genero musical mas escuchado para un usuario en especifico.\n"+
+                    /**"(                       
                     "(13). Generar un informe acerca del genero musical mas escuchado en la plataforma. \n"+
                     "(14). Generar un informe referente a la categoria de podcast mas escuchada para un usuario en especifico. \n"+
                     "(15). Generar un informe referente a la categoria de podcast mas escuchada en la plataforma.\n"+
@@ -86,13 +86,10 @@ public class NeoTunesAdmi {
     	
         switch (option){
         
-            case 1:
-            	
+            case 1:            	
                 user();
-                break;
-                
-            case 2:
-            	
+                break;                
+            case 2:            	
             	productor();
                 break;
             case 3:
@@ -102,7 +99,7 @@ public class NeoTunesAdmi {
                 podcast();
                 break;
             case 5:
-                ;
+                listas();
                 break;
             case 6:
                 ;
@@ -117,10 +114,10 @@ public class NeoTunesAdmi {
             	;
             	break;
             case 10:
-            	;
+            	informeReproduccionS();            	
             	break;
             case 11:
-            	;
+            	informeReproduccionP();
             	break;
             case 12:
             	;
@@ -260,7 +257,50 @@ public class NeoTunesAdmi {
     	
     	read.nextLine();
     	System.out.println("Escribe el nombre de la lista: ");
-    	String name
-    	System.out.println("Es");
+    	String name = read.nextLine();
+    	
+    	System.out.println("Escribe el codigo de la lista: ");
+    	int codigo = read.nextInt();
+    	
+    	System.out.println(controller.addList(name, codigo));
+    }
+    
+    public void editarListas() {
+    	read.nextLine();
+    	System.out.println("Escribe el tipo de usuario");
+    	System.out.println("1. Estandar");
+    	System.out.println("2. Premium");
+    	int typeU = read.nextInt();
+    	System.out.println("1. Agregar un audio de la lista");
+    	System.out.println("2. Eliminar un audio de la lista");
+    	    
+        int typeEdit = read.nextInt(); 
+        
+        System.out.println("Escribe el nombre de la Lista");
+        String name=read.nextLine();
+        System.out.println("Escribe el nombre del audio");
+        String audio = read.nextLine();
+        
+        int option = 0;
+     //   System.out.println(controller.editList(nickname, name, sonido, option));
+             
+        	
+    }
+    
+    public void informeReproduccionS(){
+    	
+    	System.out.println(controller.totalVSongs());    	
+    }
+    
+    public void informeReproduccionP(){
+    	
+    	System.out.println(controller.totalVPodcasts());    	
+    }
+    
+    public void informeGeneroU() {
+    	
+    	System.out.println("Escribe el nickname del usuario ");
+        String nickname1 = read.next();
+        System.out.println(controller.totalGenreU(nickname1));
     }
 }
